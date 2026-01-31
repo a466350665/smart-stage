@@ -10,6 +10,9 @@
     </parent>
     <artifactId>smart-stage-starter</artifactId>
     <packaging>jar</packaging>
+    <name>${project.artifactId}</name>
+    <description>Spring Boot starter for Smart-Stage.</description>
+    <url>https://github.com/a466350665/smart-stage</url>
 
     <dependencies>
         <dependency>

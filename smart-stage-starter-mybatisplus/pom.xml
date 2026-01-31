@@ -10,6 +10,9 @@
     </parent>
     <artifactId>smart-stage-starter-mybatisplus</artifactId>
     <packaging>jar</packaging>
+    <name>${project.artifactId}</name>
+    <description>MyBatis-Plus starter for Smart-Stage.</description>
+    <url>https://github.com/a466350665/smart-stage</url>
 
     <dependencies>
         <!-- smart公共装配能力 -->

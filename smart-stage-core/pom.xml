@@ -10,4 +10,7 @@
     </parent>
     <artifactId>smart-stage-core</artifactId>
     <packaging>jar</packaging>
+    <name>${project.artifactId}</name>
+    <description>Core utilities and infrastructure for Smart-Stage.</description>
+    <url>https://github.com/a466350665/smart-stage</url>
 </project>

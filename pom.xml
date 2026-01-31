@@ -4,9 +4,11 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>io.github.openjoe</groupId>
     <artifactId>smart-stage</artifactId>
-    <name>${project.artifactId}</name>
     <version>${revision}</version>
     <packaging>pom</packaging>
+    <name>${project.artifactId}</name>
+    <description>Smart-Stage platform base libraries and starters.</description>
+    <url>https://github.com/a466350665/smart-stage</url>
 
     <modules>
         <module>smart-stage-core</module>
@@ -123,12 +125,6 @@
         <connection>https://github.com/a466350665/smart-stage.git</connection>
         <developerConnection>https://github.com/a466350665/smart-stage.git</developerConnection>
     </scm>
-    <distributionManagement>
-        <snapshotRepository>
-            <id>central</id>
-            <url>https://central.sonatype.com/</url>
-        </snapshotRepository>
-    </distributionManagement>
 
     <build>
         <pluginManagement>
