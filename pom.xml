@@ -2,12 +2,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.5.13</version>
-        <relativePath/>
-    </parent>
     <groupId>io.github.openjoe</groupId>
     <artifactId>smart-stage</artifactId>
     <name>${project.artifactId}</name>
@@ -16,23 +10,33 @@
 
     <modules>
         <module>smart-stage-core</module>
-        <module>smart-stage-starter-parent</module>
         <module>smart-stage-starter</module>
         <module>smart-stage-starter-mybatisplus</module>
     </modules>
 
     <properties>
-        <revision>1.0.3</revision>
-        <spring.cloud.dependencies.version>2020.0.5</spring.cloud.dependencies.version>
-        <spring.cloud.alibaba.dependencies.version>2021.1</spring.cloud.alibaba.dependencies.version>
-        <springfox.version>3.0.0</springfox.version>
-        <mybatisplus.version>3.5.2</mybatisplus.version>
-        <maven.plugin.flatten.version>1.1.0</maven.plugin.flatten.version>
-        <maven.plugin.compiler.version>3.8.1</maven.plugin.compiler.version>
-        <maven.plugin.source.version>3.2.1</maven.plugin.source.version>
-        <maven.plugin.javadoc.version>2.9.1</maven.plugin.javadoc.version>
-        <maven.plugin.gpg.version>3.2.4</maven.plugin.gpg.version>
-        <maven.plugin.publishing.version>0.4.0</maven.plugin.publishing.version>
+        <revision>2.0.0</revision>
+
+        <java.version>17</java.version>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <spring-boot-dependencies.version>3.5.9</spring-boot-dependencies.version>
+        <spring-cloud-dependencies.version>2025.0.0</spring-cloud-dependencies.version>
+        <spring-cloud-alibaba-dependencies.version>2023.0.3.3</spring-cloud-alibaba-dependencies.version>
+        <swagger-annotations.version>2.2.41</swagger-annotations.version>
+        <springdoc-openapi.version>2.8.15</springdoc-openapi.version>
+        <mybatis-plus-starter.version>3.5.12</mybatis-plus-starter.version>
+        <mysql-connector-j.version>9.3.0</mysql-connector-j.version>
+
+        <flatten-maven-plugin.version>1.1.0</flatten-maven-plugin.version>
+        <maven-compile-plugin.version>3.14.0</maven-compile-plugin.version>
+        <maven-source-plugin.version>3.2.1</maven-source-plugin.version>
+        <maven-javadoc-plugin.version>2.9.1</maven-javadoc-plugin.version>
+        <maven-gpg-plugin.version>3.2.4</maven-gpg-plugin.version>
+        <central-publishing-maven-plugin.version>0.4.0</central-publishing-maven-plugin.version>
     </properties>
 
     <dependencyManagement>
@@ -40,31 +44,6 @@
             <dependency>
                 <groupId>io.github.openjoe</groupId>
                 <artifactId>smart-stage-core</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.github.openjoe</groupId>
-                <artifactId>smart-stage-starter-exception</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.github.openjoe</groupId>
-                <artifactId>smart-stage-starter-i18n</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.github.openjoe</groupId>
-                <artifactId>smart-stage-starter-resource</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.github.openjoe</groupId>
-                <artifactId>smart-stage-starter-swagger</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.github.openjoe</groupId>
-                <artifactId>smart-stage-starter-validation</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>
@@ -79,30 +58,50 @@
             </dependency>
 
             <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-dependencies</artifactId>
-                <version>${spring.cloud.dependencies.version}</version>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot-dependencies.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud-dependencies.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
             <dependency>
                 <groupId>com.alibaba.cloud</groupId>
                 <artifactId>spring-cloud-alibaba-dependencies</artifactId>
-                <version>${spring.cloud.alibaba.dependencies.version}</version>
+                <version>${spring-cloud-alibaba-dependencies.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-
             <dependency>
-                <groupId>io.springfox</groupId>
-                <artifactId>springfox-boot-starter</artifactId>
-                <version>${springfox.version}</version>
+                <groupId>io.swagger.core.v3</groupId>
+                <artifactId>swagger-annotations-jakarta</artifactId>
+                <version>${swagger-annotations.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+                <version>${springdoc-openapi.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.baomidou</groupId>
-                <artifactId>mybatis-plus-boot-starter</artifactId>
-                <version>${mybatisplus.version}</version>
+                <artifactId>mybatis-plus-spring-boot3-starter</artifactId>
+                <version>${mybatis-plus-starter.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-jsqlparser</artifactId>
+                <version>${mybatis-plus-starter.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.mysql</groupId>
+                <artifactId>mysql-connector-j</artifactId>
+                <version>${mysql-connector-j.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -132,11 +131,45 @@
     </distributionManagement>
 
     <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>flatten-maven-plugin</artifactId>
+                    <version>${flatten-maven-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${maven-compile-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-source-plugin</artifactId>
+                    <version>${maven-source-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <version>${maven-javadoc-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-gpg-plugin</artifactId>
+                    <version>${maven-gpg-plugin.version}</version>
+                </plugin>
+                <!-- Publish to Central Repository-->
+                <plugin>
+                    <groupId>org.sonatype.central</groupId>
+                    <artifactId>central-publishing-maven-plugin</artifactId>
+                    <version>${central-publishing-maven-plugin.version}</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
         <plugins>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>flatten-maven-plugin</artifactId>
-                <version>${maven.plugin.flatten.version}</version>
                 <executions>
                     <execution>
                         <id>flatten</id>
@@ -170,17 +203,11 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-compiler-plugin</artifactId>
-                        <version>${maven.plugin.compiler.version}</version>
-                        <configuration>
-                            <source>${maven.compiler.source}</source>
-                            <target>${maven.compiler.target}</target>
-                        </configuration>
                     </plugin>
                     <!-- Source -->
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-source-plugin</artifactId>
-                        <version>${maven.plugin.source.version}</version>
                         <executions>
                             <execution>
                                 <phase>package</phase>
@@ -194,10 +221,6 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-javadoc-plugin</artifactId>
-                        <version>${maven.plugin.javadoc.version}</version>
-                        <configuration>
-                            <additionalparam>-Xdoclint:none</additionalparam>
-                        </configuration>
                         <executions>
                             <execution>
                                 <phase>package</phase>
@@ -211,7 +234,6 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-gpg-plugin</artifactId>
-                        <version>${maven.plugin.gpg.version}</version>
                         <executions>
                             <execution>
                                 <phase>verify</phase>
@@ -225,7 +247,6 @@
                     <plugin>
                         <groupId>org.sonatype.central</groupId>
                         <artifactId>central-publishing-maven-plugin</artifactId>
-                        <version>${maven.plugin.publishing.version}</version>
                         <extensions>true</extensions>
                         <configuration>
                             <publishingServerId>central</publishingServerId>

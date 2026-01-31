@@ -1,2 +1,5 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-openjoe.smart.stage.common.util.ApplicationContextUtils
+org.springframework.context.ApplicationContextInitializer=\
+openjoe.smart.stage.util.ApplicationContextUtils
+
+org.springframework.boot.env.EnvironmentPostProcessor=\
+openjoe.smart.stage.plugin.PluginEnvironmentPostProcessor

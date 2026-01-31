@@ -1,3 +1,0 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-openjoe.smart.stage.validation.config.ValidationConfig,\
-openjoe.smart.stage.validation.handler.DefaultValidationHandler

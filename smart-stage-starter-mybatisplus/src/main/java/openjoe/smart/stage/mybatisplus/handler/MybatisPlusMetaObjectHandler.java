@@ -31,9 +31,8 @@ public class MybatisPlusMetaObjectHandler implements MetaObjectHandler {
      */
     @Override
     public void updateFill(MetaObject metaObject) {
-        Date now = getNow();
         if (metaObject.hasSetter(BaseEntity.UPDATE_TIME)) {
-            this.setFieldValByName(BaseEntity.UPDATE_TIME, now, metaObject);
+            this.setFieldValByName(BaseEntity.UPDATE_TIME, getNow(), metaObject);
         }
     }
 

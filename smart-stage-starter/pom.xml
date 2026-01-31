@@ -12,26 +12,21 @@
     <packaging>jar</packaging>
 
     <dependencies>
-        <!-- smart公共装配能力 -->
         <dependency>
             <groupId>io.github.openjoe</groupId>
-            <artifactId>smart-stage-starter-exception</artifactId>
+            <artifactId>smart-stage-core</artifactId>
         </dependency>
         <dependency>
-            <groupId>io.github.openjoe</groupId>
-            <artifactId>smart-stage-starter-i18n</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
         <dependency>
-            <groupId>io.github.openjoe</groupId>
-            <artifactId>smart-stage-starter-resource</artifactId>
+            <groupId>io.swagger.core.v3</groupId>
+            <artifactId>swagger-annotations-jakarta</artifactId>
         </dependency>
         <dependency>
-            <groupId>io.github.openjoe</groupId>
-            <artifactId>smart-stage-starter-swagger</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.github.openjoe</groupId>
-            <artifactId>smart-stage-starter-validation</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
     </dependencies>
 </project>

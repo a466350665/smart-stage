@@ -2,7 +2,7 @@ package openjoe.smart.stage.mybatisplus.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 /**
  * MybatisPlus基础持久化基类
@@ -11,7 +11,7 @@ import io.swagger.annotations.ApiModelProperty;
  */
 public class Entity {
 
-    @ApiModelProperty("主键")
+    @Schema(description = "主键")
     @TableId(type = IdType.AUTO)
     private Long id;
 

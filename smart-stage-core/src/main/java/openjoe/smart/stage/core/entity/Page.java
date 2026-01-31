@@ -48,6 +48,14 @@ public class Page<T> {
         this.current = current;
         this.size = size;
         this.total = total;
+        this.records = Collections.emptyList();
+    }
+
+    public Page(long current, long size, List<T> records) {
+        this.current = current;
+        this.size = size;
+        this.total = records == null ? 0L : records.size();
+        this.records = records == null ? Collections.emptyList() : records;
     }
 
     public List<T> getRecords() {
@@ -101,7 +109,8 @@ public class Page<T> {
 
     public <R> Page<R> convert(Function<? super T, ? extends R> mapper) {
         Page<R> p = Page.of(current, size, total);
-        p.setRecords(records.stream().map(mapper).collect(Collectors.toList()));
+        List<T> source = records == null ? Collections.emptyList() : records;
+        p.setRecords(source.stream().map(mapper).collect(Collectors.toList()));
         return p;
     }
 
@@ -111,5 +120,9 @@ public class Page<T> {
 
     public static <T> Page<T> of(long current, long size, long total) {
         return new Page(current, size, total);
+    }
+
+    public static <T> Page<T> of(long current, long size, List<T> records) {
+        return new Page(current, size, records);
     }
 }

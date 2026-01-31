@@ -1,2 +1,0 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-openjoe.smart.stage.i18n.config.I18nConfig

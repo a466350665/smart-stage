@@ -1,311 +1,175 @@
-## 简介
+# Smart Stage
 
-smart-stage是一个构建在SpringBoot之上的微服务增强框架，旨在统一公共机制的处理规范。此外，它还引入了一种插件机制，通过规范化应用结构，让应用同时支持单体和多应用任意组合的启动部署方式。
+一组面向 Spring Boot 3 的轻量级基础能力 Starter，聚焦通用规范和插件化，快速构建兼具单体和聚合启动的Java多模块应用。
 
-## 组件说明
+## 主要特性
 
-  ```
-smart-stage                                         应用名称
-├── smart-stage-core                                核心模块，统一响应报文
-├── smart-stage-starter-parent                      装配父模块
-│   ├── smart-stage-starter-exception               异常模块，统一异常基类，拦截结果处理，国际化支持
-│   ├── smart-stage-starter-i18n                    国际化模块，多国家语言处理
-│   ├── smart-stage-starter-resource                资源模块，为应用加载合并资源配置文件，插件机制核心
-│   ├── smart-stage-starter-swagger                 文档模块，Swagger规范
-│   ├── smart-stage-starter-validation              校验模块，集成SpringBoot Validation，国际化支持
-├── smart-stage-starter                             组装模块，SpringBoot基础和装配模块5大公共能力的组装
-├── smart-stage-starter-mybatisplus                 组装扩展MybatisPlus模块，贯标公共字段及其变更自动赋值的功能
-  ```
+- 统一响应模型 `Result<T>` 与标准分页模型 `Page<T>`
+- 统一错误码与异常体系，提供全局异常拦截
+- 可选的国际化支持（基于 Spring `MessageSource`）
+- MyBatis-Plus 的分页拦截器、基础实体与 Service 支持
+- **插件机制（`plugin/*` 插件资源目录的自动加载）**
+- **兼具单体和聚合启动方式**
 
-## 组件依赖关系
+## 目录结构和说明
 
-![](images/smart-stage.png)
-
-## 技术选型
-
-| 技术                   | 版本    | 说明             |
-| ---------------------- | ------- | ---------------- |
-| spring-boot             | 2.5.13   | 容器+MVC框架     |
-| spring-boot-starter-validation    | 2.5.13   | 校验  |
-| mybatis-plus-boot-starter           | 3.5.2   | MyBatis增强工具  |
-| springfox-boot-starter      | 3.0.0   | 文档     |
-
-## 能力说明
-
-1. **统一处理规范：** 实现了对响应报文、异常、国际化、文档、校验等公共机制的处理规范；
-
-2. **ORM层标准化：** 提供了标准化ORM层公共字段及其变更自动赋值的功能；
-
-3. **灵活部署支持：** 通过插件化改造应用结构，使其能够同时支持单体式和多应用的灵活组合部署。在多应用合并至同一进程部署时，应用间的API调用将采用本地方式；而当应用以独立微服务形式部署时，调用方式会自动切换为远程调用；
-
-4. **插件机制：** 为了适应多变的部署和交付需求，引入了插件机制，对应用的结构及资源文件进行了创新性改造。这一举措不仅提升了应用的灵活性，还为快速响应市场变化提供了有力支持；
-
-5. **脚手架支持：** 提供了基于Maven Archetype的脚手架，帮助用户快速创建和上手项目；
-
-6. **高度扩展性：** 装配模块的5大公共能力都是无耦合设计，任意模块的排除不影响其它模块的使用，且模块包含的装配Bean都允许自定义扩展覆盖，提升了系统的整体扩展性。
-
-## 快速开始
-
-### 前置条件
-
-该章节介绍如何使用smart-stage自带的Maven Archetype脚手架工具，快速创建一个推荐结构的SpringBoot + MybatisPlus应用。在开始使用工具前，您需要满足以下环境准备：
-<ul>
-    <li>Maven环境及其环境变量配置</li>
-    <li>Mysql数据库</li>
-</ul>
-
-### 创建步骤
-要创建一个新应用，请执行以下步骤：
-
-1.终端cd指令定位到常用的workspace目录
 ```
-cd /Users/lezhou/projects
-```
-2.执行以下Maven命令
-```
-mvn archetype:generate \
-    -DarchetypeGroupId=io.github.openjoe \
-    -DarchetypeArtifactId=smart-stage-archetype \
-    -DarchetypeVersion=1.0.3 \
-    -DgroupId=<my-groupId> \
-    -DartifactId=<my-artifactId> \
-    -Dversion=<my-version> \
-    -Dpackage=<my-package> \
-    -Dsymbol=<my-symbol> \
-    -DinteractiveMode=false
+smart-stage
+├── smart-stage-core                 核心实体与工具类（Result、Page、错误码、消息工具）
+├── smart-stage-starter              Spring Boot 自动配置（异常拦截、i18n、校验、插件资源加载）
+├── smart-stage-starter-mybatisplus  MyBatis-Plus 自动配置与通用基类
+└── pom.xml
 ```
 
-请将上述命令中的&lt;my-groupId&gt;, &lt;my-artifactId&gt;, &lt;my-version&gt;, &lt;my-package&gt;, &lt;my-symbol&gt;替换为您的实际值。
-<ul>
-<li>
--DgroupId=&lt;my-groupId&gt;: 指定应用的组ID，如com.smart
-</li>
-<li>
--DartifactId=&lt;my-artifactId&gt;: 指定应用的artifact ID，如smart-sample
-</li>
-<li>
--Dversion=&lt;my-version&gt;: 指定应用的版本号，如1.0.0-SNAPSHOT
-</li>
-<li>
--Dpackage=&lt;my-package&gt;: 指定应用的Java包名，如com.smart.sample
-</li>
-<li>
--Dsymbol=&lt;my-symbol&gt;: 指定应用的简称，它用于请求路径前缀和插件资源目录的命名，最好用纯英文小写，如sample
-</li>
-</ul>
+## 环境要求
 
-3.命令执行完成后，您将看到一个新的Maven应用目录。
-![](images/img1.png)
+- JDK 17
+- Spring Boot 3.5.x
 
-4.用IDEA打开，找到<my-artifactId>-boot模块下的application.yaml文件修改成自己的数据库连接配置，并执行项目根路径下的初始化脚本init.sql，通过启动类BootApplication.java启动验证。
-![](images/img2.png)
+## 相关项目（脚手架与示例）
 
-### 应用结构说明
+Smart Stage 负责提供基础能力，以下两个项目分别用于“生成工程骨架”和“演示完整落地”：
+
+### smart-stage-archetype（Maven Archetype 模板）
+
+- 开源地址：[smart-stage-archetype](https://github.com/a466350665/smart-stage-archetype)
+- 定位：**快速生成支持插件机制和聚合部署的Java基础应用**
+- 预置能力：
+  - `service` 模块默认集成 MyBatis-Plus + MySQL
+  - `boot` 模块内置 Spring Boot 打包配置与 Dockerfile
+  - 示例 CRUD、`init.sql`、插件配置目录 `plugin/${symbol}` 与 i18n 资源
+
+### smart-stage-governor（多模块示例工程）
+
+- 开源地址：[smart-stage-governor](https://github.com/a466350665/smart-stage-governor)
+- 定位：**展示 Smart Stage 兼具单体和聚合的能力**
+- 结构与能力：
+  - `smart-stage-governor-boot` 聚合启动模块（便于单体方式快速验证）
+  - `smart-stage-sample1`：示例应用1（基于 [smart-stage-archetype](https://github.com/a466350665/smart-stage-archetype) 生成的Java基础应用）
+  - `smart-stage-sample2`：示例应用2（通过 OpenFeign 调用 示例应用1）
+
+## 安装与依赖
+
+项目发布到 Maven Central 后，可按需引入：
+
+```xml
+<dependency>
+    <groupId>io.github.openjoe</groupId>
+    <artifactId>smart-stage-core</artifactId>
+    <version>2.0.0</version>
+</dependency>
 ```
-<my-artifactId>                                应用名称
-├── <my-artifactId>-api                        API模块，提供Feign接口示例
-├── <my-artifactId>-service                    服务模块，提供基础CRUD示例，Controller、Service、Mapper结构分层
-└── <my-artifactId>-boot                       启动模块，应用启动入口
-  ```
-&lt;my-artifactId&gt;为脚手架必传参数，创建后替换为您的实际值。
 
-### 应用示例依赖关系
+```xml
+<dependency>
+    <groupId>io.github.openjoe</groupId>
+    <artifactId>smart-stage-starter</artifactId>
+    <version>2.0.0</version>
+</dependency>
+```
 
-![](images/smart-sample.png)
-
-## 接入指南
-
-### 添加依赖
-在应用的公共模块中添加smart-stage-starter-mybatisplus依赖，无需数据库场景可以选择smart-stage-starter。
-  ```
+```xml
 <dependency>
     <groupId>io.github.openjoe</groupId>
     <artifactId>smart-stage-starter-mybatisplus</artifactId>
-    <version>${version}</version>
+    <version>2.0.0</version>
 </dependency>
-  ```
-
-### 国际化
-SpringBoot默认从项目的resources/目录读取，推荐存放resources/i18n目录。application.yaml标准配置如下：
-```
-spring:
-  messages:
-    basename: i18n/messages
 ```
 
-资源文件配置示例：   
-messages_zh_CN.properties
-```
-message.test1=国际化消息测试
-message.test2=国际化消息测试,参数1：{0},参数2：{1}
-  ```
-messages_en_US.properties
-```
-message.test1=I18n message test
-message.test2=I18n message test, param1:{0},param2:{1}
+如果你使用父 POM 统一管理版本，可使用 `${revision}` 统一控制版本号。
+
+## 快速使用
+
+### 统一响应体与错误码
+
+`Result` 提供统一响应结构，配合 `ErrorCode` 支持动态消息与国际化。
+
+```java
+return Result.success(data);
+// or
+throw new ApplicationException(ErrorCodeEnum.ERROR);
 ```
 
-使用方式支持以下两种   
-第一种：自定义枚举实现IMessage接口。(推荐)
+### 全局异常处理
+
+`ApplicationException` 与 `CommonException` 支持错误码与国际化消息：
+
+```java
+throw new ApplicationException(ErrorCodeEnum.ERROR);
 ```
-import openjoe.smart.stage.common.core.entity.IMessage;
 
-public enum MessageEnum implements IMessage {
-    TEST1("message.test1"),
-    TEST2("message.test2");
+由 `GlobalExceptionHandler` 提供，返回统一 `Result` 结构。
 
-    private String key;
-    
-    MessageEnum(String key) {
-        this.key = key;
-    }
+### 国际化（i18n）
 
-    @Override
-    public String getKey() {
-        return key;
-    }
+启用国际化：
+
+```properties
+smart.stage.i18n.enabled=true
+```
+
+`MessageUtils` 会自动使用 Spring `MessageSource`，支持参数化消息：
+
+```java
+String text = MessageUtils.getOrDefault("user.notfound", "用户不存在", userId);
+```
+
+资源文件规则：
+
+- 默认：`classpath:messages*.properties`，其中 `messages` 可通过spring.messages.basename配置调整
+
+### 插件资源加载
+
+支持从 `plugin/*` 目录加载配置与资源：
+
+- 配置：`plugin/*/application.yml|yaml|properties`  
+  支持 profile：`application-dev.yml` 等
+- 国际化资源：`plugin/*/messages*.properties`
+
+无需额外代码，通过 `EnvironmentPostProcessor` 自动加载。
+
+### MyBatis-Plus 增强
+
+引入 `smart-stage-starter-mybatisplus` 后：
+
+- 自动注册分页拦截器
+- 自动填充 `createTime` / `updateTime`
+- 提供 `BaseEntity`、`BaseService`、`BaseServiceImpl` 与分页转换
+
+配置示例：
+
+```properties
+smart.stage.mybatis-plus.page-db-type=mysql
+```
+
+分页调用示例：
+
+```java
+Page<User> page = userService.findPage(1, 10);
+```
+
+实体与服务示例：
+
+```java
+public class UserEntity extends BaseEntity {
+  private String name;
 }
 
-String test1 = MessageEnum.TEST1.getMessage();
-String test2 = MessageEnum.TEST2.getMessage("p1", "p2");
-  ```
-第二种：直接使用Message工具类。
-```
-import openjoe.smart.stage.common.core.entity.Message;
-
-String test1 = Message.get("message.test1");
-String test2 = Message.get("message.test2", "p1", "p2");
-  ```
-
-
-请求头参数说明，国际化是前端通过在http请求头传递参数来告知后端当前使用的语言，推荐使用SpringBoot标准请求头Accept-Language。
-```
-Accept-Language:zh_CN
-Accept-Language:en_US
-```
-
-### 异常处理
-需国际化处理异常抛出ApplicationException，无需国际化处理抛出CommonException，自定义异常继承它俩即可。   
-异常通常结合错误码一起使用，项目中请自定义错误码枚举，并实现IErrorCode接口。
-```
-import openjoe.smart.stage.common.core.entity.IErrorCode;
-import openjoe.smart.stage.common.exception.ApplicationException;
-
-public enum ErrorCodeEnum implements IErrorCode {
-
-    E1001(1001, "主键不能为空"),
-    E1002(1002, "编码：{0}已存在");
-
-    private Integer code;
-    private String desc;
-
-    ErrorCodeEnum(Integer code, String desc) {
-        this.code = code;
-        this.desc = desc;
-    }
-
-    @Override
-    public Integer getCode() {
-        return code;
-    }
-
-    @Override
-    public String getDesc() {
-        return desc;
-    }
-}
-
-
-public Result update(@RequestBody @Validated Demo entity) {
-    if (entity.getId() == null) {
-        throw new ApplicationException(ErrorCodeEnum.E1001);
-    }
-    Demo t = demoService.getByCode(entity.getCode());
-    if (t != null && !t.getId().equals(entity.getId())) {
-        throw new ApplicationException(ErrorCodeEnum.E1002, entity.getCode());
-    }
-    ......
-    return Result.success();
+public interface UserService extends BaseService<UserEntity> {
 }
 ```
 
-错误码支持以枚举的code作为国际化key方式定义资源消息   
-messages_zh_CN.properties
-```
-1001=主键不能为空
-1002=编码：{0}已存在
-```
-messages_en_US.properties
-```
-1001=Id must not be null
-1002=Code:{0} already exists
+分页统一返回：
+
+```java
+Page<UserEntity> page = userService.findPage(1, 20);
 ```
 
-### 校验
-Entity上增加javax.validation相关注解，Controller中Mapping方法增加@Validated注解。
-```
-import javax.validation.constraints.NotBlank;
+## 配置项一览
 
-@TableName("t_demo")
-public class Demo extends BaseEntity {
+- `smart.stage.i18n.enabled`：是否启用国际化（默认 false）
+- `smart.stage.mybatis-plus.page-db-type`：MyBatis-Plus 分页数据库类型（默认 ``，仅当需要特指数据库类型分页语法时才配置，如：OceanBase支持Mysql和Oracle两种语法模式）
 
-    @NotBlank(message = "{demo.code}")
-    private String code;
+## License
 
-    @NotBlank
-    private String name;
-}
-
-@PostMapping
-public Result add(@RequestBody @Validated Demo entity) {
-    demoService.save(entity);
-    return Result.success();
-}
-```
-
-校验也支持国际化处理，上述{demo.code}为国际化配置文件定义的key   
-messages_zh_CN.properties
-```
-demo.code=编码不能为空
-```
-messages_en_US.properties
-```
-demo.code=Code must not be null
-```
-
-### 文档
-使用了springfox-boot-starter工具，它内置Swagger，默认为开启状态。application.yml标准配置如下：
-```
-smart:
-  stage:
-    swagger:
-      base-packages: com.smart.sample.controller #路径扫描,支持逗号分隔，不支持*模糊匹配
-      title: smart-sample
-      description: smart-sample描述
-      version: 1.0.0-SNAPSHOT
-```
-
-禁用文档配置：
-```
-smart:
-  stage:
-    swagger:
-      enable: false
-```
-
-### 扩展性
-以smart-stage-starter为前缀的装配模块都是无耦合设计，任意模块的排除不影响其它模块的使用，且模块包含的装配Bean都允许自定义扩展覆盖，提升了系统的整体扩展性。
-
-以下提供国际化装配模块的排除示例。
-  ```
-<dependency>
-    <groupId>io.github.openjoe</groupId>
-    <artifactId>smart-stage-starter-mybatisplus</artifactId>
-    <exclusions>
-        <exclusion>
-            <groupId>io.github.openjoe</groupId>
-            <artifactId>smart-stage-starter-i18n</artifactId>
-        </exclusion>
-    </exclusions>
-</dependency>
-  ```
+Apache License 2.0

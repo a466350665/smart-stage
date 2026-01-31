@@ -1,0 +1,3 @@
+openjoe.smart.stage.exception.ExceptionAutoConfiguration
+openjoe.smart.stage.i18n.I18nAutoConfiguration
+openjoe.smart.stage.validation.ValidationAutoConfiguration

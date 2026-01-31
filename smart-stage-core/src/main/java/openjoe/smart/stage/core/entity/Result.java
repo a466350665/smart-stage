@@ -1,6 +1,6 @@
 package openjoe.smart.stage.core.entity;
 
-import openjoe.smart.stage.core.enums.ResultEnum;
+import openjoe.smart.stage.core.enums.ErrorCodeEnum;
 
 import java.beans.Transient;
 
@@ -12,7 +12,7 @@ public class Result<T> {
 	/**
 	 * 响应码
 	 */
-	private Integer code;
+	private String code;
 
 	/**
 	 * 消息
@@ -24,21 +24,16 @@ public class Result<T> {
 	 */
 	private T data;
 
-	public Result() {
-	}
+    public Result() {
+    }
 
-	public Result(Integer code, String message) {
-		this.code = code;
-		this.message = message;
-	}
-
-	public Result(Integer code, String message, T data) {
-		this(code, message);
-		this.data = data;
-	}
+    public Result(String code, String message) {
+        this.code = code;
+        this.message = message;
+    }
 
 	public static <T> Result<T> success() {
-		return new Result<>(ResultEnum.SUCCESS.getCode(), ResultEnum.SUCCESS.getMessage());
+        return new Result<>(ErrorCodeEnum.SUCCESS.getCode(), ErrorCodeEnum.SUCCESS.getMessage());
 	}
 
 	public static <T> Result<T> success(T data) {
@@ -47,15 +42,15 @@ public class Result<T> {
 		return r;
 	}
 
-	public static <T> Result<T> error() {
-		return new Result<>(ResultEnum.ERROR.getCode(), ResultEnum.ERROR.getMessage());
-	}
+    public static <T> Result<T> error(String code, String message) {
+        return new Result<>(code, message);
+    }
 
-	public Integer getCode() {
+	public String getCode() {
 		return code;
 	}
 
-	public Result<T> setCode(Integer code) {
+	public Result<T> setCode(String code) {
 		this.code = code;
 		return this;
 	}
@@ -80,7 +75,7 @@ public class Result<T> {
 
 	@Transient
 	public boolean isSuccess() {
-		return ResultEnum.SUCCESS.getCode().equals(this.code);
+		return ErrorCodeEnum.SUCCESS.getCode().equals(this.code);
 	}
 
 	@Override
