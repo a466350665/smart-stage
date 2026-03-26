@@ -5,6 +5,7 @@ import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
 
 import java.lang.annotation.Annotation;
+import java.util.Collections;
 import java.util.Map;
 
 /**
@@ -53,7 +54,7 @@ public final class ApplicationContextUtils implements ApplicationContextInitiali
         try {
             return applicationContext.getBeansOfType(clazz);
         } catch (Exception exception) {
-            return null;
+            return Collections.emptyMap();
         }
     }
 
