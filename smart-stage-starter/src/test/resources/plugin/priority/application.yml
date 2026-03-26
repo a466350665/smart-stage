@@ -1,0 +1,5 @@
+plugin:
+  override:
+    target: plugin-default
+  profile:
+    value: profile-default

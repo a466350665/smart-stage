@@ -128,6 +128,29 @@ String text = MessageUtils.getOrDefault("user.notfound", "用户不存在", user
 
 无需额外代码，通过 `EnvironmentPostProcessor` 自动加载。
 
+推荐目录结构：
+
+```text
+plugin/
+  demo/
+    application.yml
+    application-dev.yml
+    messages.properties
+    messages_en.properties
+```
+
+配置优先级约定：
+
+- 命令行参数、高优先级外部配置、系统环境变量优先于插件配置
+- 主应用 `application.yml` 优先于插件默认配置
+- 插件 profile 配置优先于同插件下的默认配置
+- 插件配置更适合作为扩展默认值，宿主应用负责最终覆盖
+
+使用建议：
+
+- 插件内只放该插件自己的默认配置，避免和宿主应用的大范围通用配置重名
+- 如果多个插件声明同名配置，应在宿主应用中显式覆盖，避免依赖插件加载顺序
+
 ### MyBatis-Plus 增强
 
 引入 `smart-stage-starter-mybatisplus` 后：

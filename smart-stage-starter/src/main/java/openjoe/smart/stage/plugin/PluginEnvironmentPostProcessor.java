@@ -19,13 +19,12 @@ public class PluginEnvironmentPostProcessor implements EnvironmentPostProcessor 
         ResourcePatternResolver resourcePatternResolver = new PathMatchingResourcePatternResolver();
 
         // 解析默认配置文件，如：application.yml
-        PluginResourceParser.parseConfigs(environment, resourcePatternResolver, "");
+        PluginResourceParser.parseConfigs(environment, resourcePatternResolver, "", false);
 
         // 解析activeProfiles配置文件，如：application-dev.yml
         for (String profile : environment.getActiveProfiles()) {
-            PluginResourceParser.parseConfigs(environment, resourcePatternResolver, "-" + profile);
+            PluginResourceParser.parseConfigs(environment, resourcePatternResolver, "-" + profile, true);
         }
     }
 }
-
 
