@@ -16,10 +16,10 @@ public class I18nMessage implements Message {
 
     private static final Logger log = LoggerFactory.getLogger(I18nMessage.class);
 
-    private static MessageSource messageSource;
+    private final MessageSource messageSource;
 
     public I18nMessage(MessageSource messageSource) {
-        I18nMessage.messageSource = messageSource;
+        this.messageSource = messageSource;
     }
 
     @Override

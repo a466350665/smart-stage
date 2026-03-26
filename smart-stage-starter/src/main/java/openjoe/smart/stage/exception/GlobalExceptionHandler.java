@@ -5,13 +5,17 @@ import openjoe.smart.stage.core.enums.ErrorCodeEnum;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.annotation.Order;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
+import org.springframework.validation.BindException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+
+import jakarta.validation.ConstraintViolationException;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -33,7 +37,7 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(CommonException.class)
     @ResponseBody
-    public Object handleException(CommonException e) {
+    public Result<Void> handleException(CommonException e) {
         return Result.error(e.getCode(), e.getMessage());
     }
 
@@ -45,7 +49,7 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(Exception.class)
     @ResponseBody
-    public Object handleException(Exception e) {
+    public Result<Void> handleException(Exception e) {
         log.error("global exception.", e);
         return Result.error(ErrorCodeEnum.ERROR.getCode(), ErrorCodeEnum.ERROR.getMessage());
     }
@@ -58,9 +62,9 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(MissingServletRequestParameterException.class)
     @ResponseBody
-    public Object handleException(MissingServletRequestParameterException e) {
+    public Result<Void> handleException(MissingServletRequestParameterException e) {
         log.error("parameter exception.", e);
-        return Result.error(ErrorCodeEnum.VALIDATION_ERROR.getCode(), e.getMessage());
+        return validationError(e.getMessage());
     }
 
     /**
@@ -71,9 +75,9 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     @ResponseBody
-    public Object handleException(MethodArgumentTypeMismatchException e) {
+    public Result<Void> handleException(MethodArgumentTypeMismatchException e) {
         log.error("parameter exception.", e);
-        return Result.error(ErrorCodeEnum.VALIDATION_ERROR.getCode(), e.getMessage());
+        return validationError(e.getMessage());
     }
 
     /**
@@ -84,9 +88,37 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseBody
-    public Object handleException(MethodArgumentNotValidException e) {
+    public Result<Void> handleException(MethodArgumentNotValidException e) {
         List<FieldError> errorList = e.getBindingResult().getFieldErrors();
         String message = errorList.stream().map(t -> t.getField() + ":" + t.getDefaultMessage()).collect(Collectors.joining(";"));
+        return validationError(message);
+    }
+
+    @ExceptionHandler(BindException.class)
+    @ResponseBody
+    public Result<Void> handleException(BindException e) {
+        List<FieldError> errorList = e.getBindingResult().getFieldErrors();
+        String message = errorList.stream().map(t -> t.getField() + ":" + t.getDefaultMessage()).collect(Collectors.joining(";"));
+        return validationError(message);
+    }
+
+    @ExceptionHandler(ConstraintViolationException.class)
+    @ResponseBody
+    public Result<Void> handleException(ConstraintViolationException e) {
+        String message = e.getConstraintViolations().stream()
+                .map(violation -> violation.getPropertyPath() + ":" + violation.getMessage())
+                .collect(Collectors.joining(";"));
+        return validationError(message);
+    }
+
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    @ResponseBody
+    public Result<Void> handleException(HttpMessageNotReadableException e) {
+        log.error("request body exception.", e);
+        return validationError(e.getMostSpecificCause() == null ? e.getMessage() : e.getMostSpecificCause().getMessage());
+    }
+
+    private Result<Void> validationError(String message) {
         return Result.error(ErrorCodeEnum.VALIDATION_ERROR.getCode(), message);
     }
 }

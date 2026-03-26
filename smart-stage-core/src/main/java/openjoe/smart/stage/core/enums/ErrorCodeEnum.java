@@ -7,10 +7,10 @@ public enum ErrorCodeEnum implements ErrorCode {
 
     SUCCESS("000000", "成功"),
     ERROR("000001", "未知错误"),
-    VALIDATION_ERROR("000002", ""),;
+    VALIDATION_ERROR("000002", "参数校验失败");
 
-    private String code;
-    private String desc;
+    private final String code;
+    private final String desc;
 
     ErrorCodeEnum(String code, String desc) {
         this.code = code;

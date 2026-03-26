@@ -1,6 +1,5 @@
 package openjoe.smart.stage.validation;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
@@ -16,8 +15,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @ConditionalOnBean({MessageSource.class})
 public class ValidationAutoConfiguration implements WebMvcConfigurer {
 
-    @Autowired
-    private MessageSource messageSource;
+    private final MessageSource messageSource;
+
+    public ValidationAutoConfiguration(MessageSource messageSource) {
+        this.messageSource = messageSource;
+    }
 
     /**
      * 国际化处理
