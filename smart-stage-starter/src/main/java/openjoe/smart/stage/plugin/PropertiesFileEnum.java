@@ -6,8 +6,7 @@ import org.springframework.beans.factory.config.YamlPropertiesFactoryBean;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.EncodedResource;
 
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.Properties;
 import java.util.function.Function;
@@ -38,8 +37,8 @@ public enum PropertiesFileEnum {
 
     private static Properties loadPropertiesFile(Resource resource) {
         Properties properties = new Properties();
-        try (InputStream inputStream = resource.getInputStream()) {
-            properties.load(inputStream);
+        try (Reader reader = new BufferedReader(new InputStreamReader(resource.getInputStream(), StandardCharsets.UTF_8))) {
+            properties.load(reader);
         } catch (IOException e) {
             log.error("Error loading properties file: {}", e.getMessage(), e);
         }
