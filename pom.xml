@@ -17,22 +17,22 @@
     </modules>
 
     <properties>
-        <revision>2.0.1</revision>
+        <revision>3.0.0</revision>
 
-        <java.version>17</java.version>
+        <java.version>25</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <spring-boot-dependencies.version>3.5.9</spring-boot-dependencies.version>
-        <spring-cloud-dependencies.version>2025.0.0</spring-cloud-dependencies.version>
-        <spring-cloud-alibaba-dependencies.version>2023.0.3.3</spring-cloud-alibaba-dependencies.version>
-        <swagger-annotations.version>2.2.41</swagger-annotations.version>
-        <springdoc-openapi.version>2.8.15</springdoc-openapi.version>
-        <mybatis-plus-starter.version>3.5.12</mybatis-plus-starter.version>
-        <mysql-connector-j.version>9.3.0</mysql-connector-j.version>
-        <postgresql.version>42.7.8</postgresql.version>
+        <spring-boot-dependencies.version>4.1.0</spring-boot-dependencies.version>
+        <spring-cloud-dependencies.version>2025.1.2</spring-cloud-dependencies.version>
+        <spring-cloud-alibaba-dependencies.version>2025.1.0.0</spring-cloud-alibaba-dependencies.version>
+        <swagger-annotations.version>2.2.52</swagger-annotations.version>
+        <springdoc-openapi.version>3.1.0</springdoc-openapi.version>
+        <mybatis-plus-starter.version>3.5.17</mybatis-plus-starter.version>
+        <mysql-connector-j.version>9.7.0</mysql-connector-j.version>
+        <postgresql.version>42.7.11</postgresql.version>
 
         <flatten-maven-plugin.version>1.1.0</flatten-maven-plugin.version>
         <maven-compile-plugin.version>3.14.0</maven-compile-plugin.version>
@@ -94,7 +94,7 @@
             </dependency>
             <dependency>
                 <groupId>com.baomidou</groupId>
-                <artifactId>mybatis-plus-spring-boot3-starter</artifactId>
+                <artifactId>mybatis-plus-spring-boot4-starter</artifactId>
                 <version>${mybatis-plus-starter.version}</version>
             </dependency>
             <dependency>

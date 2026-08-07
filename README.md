@@ -1,6 +1,6 @@
 # Smart Stage
 
-一组面向 Spring Boot 3 的轻量级基础能力 Starter，聚焦通用规范和插件化，快速构建兼具单体和聚合启动的Java多模块应用。
+一组面向 Spring Boot 4 的轻量级基础能力 Starter，聚焦通用规范和插件化，快速构建兼具单体和聚合启动的Java多模块应用。
 
 ## 主要特性
 
@@ -24,7 +24,7 @@ smart-stage
 ## 环境要求
 
 - JDK 17
-- Spring Boot 3.5.x
+- Spring Boot 4.1.x
 
 ## 相关项目（脚手架与示例）
 

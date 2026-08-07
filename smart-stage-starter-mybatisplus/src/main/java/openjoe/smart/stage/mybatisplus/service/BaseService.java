@@ -3,7 +3,7 @@ package openjoe.smart.stage.mybatisplus.service;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.baomidou.mybatisplus.extension.service.IService;
+import com.baomidou.mybatisplus.spring.service.IService;
 import openjoe.smart.stage.core.entity.Page;
 import openjoe.smart.stage.mybatisplus.util.PageHelper;
 

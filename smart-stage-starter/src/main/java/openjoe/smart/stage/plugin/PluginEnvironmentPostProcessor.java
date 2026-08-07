@@ -2,8 +2,8 @@ package openjoe.smart.stage.plugin;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.EnvironmentPostProcessor;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.env.EnvironmentPostProcessor;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternResolver;
@@ -27,4 +27,3 @@ public class PluginEnvironmentPostProcessor implements EnvironmentPostProcessor 
         }
     }
 }
-

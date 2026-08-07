@@ -1,5 +1,5 @@
 org.springframework.context.ApplicationContextInitializer=\
 openjoe.smart.stage.util.ApplicationContextUtils
 
-org.springframework.boot.env.EnvironmentPostProcessor=\
+org.springframework.boot.EnvironmentPostProcessor=\
 openjoe.smart.stage.plugin.PluginEnvironmentPostProcessor
