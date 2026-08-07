@@ -2,6 +2,7 @@ package openjoe.smart.stage.mybatisplus.service;
 
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.IService;
 import openjoe.smart.stage.core.entity.Page;
 import openjoe.smart.stage.mybatisplus.util.PageHelper;
@@ -21,8 +22,7 @@ public interface BaseService<T> extends IService<T> {
      * @return
      */
     default Page<T> findPage(long current, long size) {
-        IPage<T> t = page(new com.baomidou.mybatisplus.extension.plugins.pagination.Page<>(current, size));
-        return PageHelper.convert(t);
+        return findPage(current, size, Wrappers.emptyWrapper());
     }
 
     /**

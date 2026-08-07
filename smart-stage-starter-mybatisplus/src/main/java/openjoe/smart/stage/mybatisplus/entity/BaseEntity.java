@@ -13,9 +13,6 @@ import java.util.Date;
  */
 public class BaseEntity extends Entity {
 
-    public static String CREATE_TIME = "createTime";
-    public static String UPDATE_TIME = "updateTime";
-
     @Schema(description = "创建时间")
     @TableField(value = "create_time", fill = FieldFill.INSERT)
     protected Date createTime;

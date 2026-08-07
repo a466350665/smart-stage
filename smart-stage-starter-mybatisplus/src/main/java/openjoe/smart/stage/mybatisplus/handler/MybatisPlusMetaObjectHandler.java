@@ -15,12 +15,11 @@ public class MybatisPlusMetaObjectHandler implements MetaObjectHandler {
      */
     @Override
     public void insertFill(MetaObject metaObject) {
-        Date now = getNow();
-        if (metaObject.hasSetter(BaseEntity.CREATE_TIME)) {
-            this.setFieldValByName(BaseEntity.CREATE_TIME, now, metaObject);
-        }
-        if (metaObject.hasSetter(BaseEntity.UPDATE_TIME)) {
-            this.setFieldValByName(BaseEntity.UPDATE_TIME, now, metaObject);
+        Object obj = metaObject.getOriginalObject();
+        if (obj instanceof BaseEntity entity) {
+            Date now = getNow();
+            entity.setCreateTime(now);
+            entity.setUpdateTime(now);
         }
     }
 
@@ -31,8 +30,9 @@ public class MybatisPlusMetaObjectHandler implements MetaObjectHandler {
      */
     @Override
     public void updateFill(MetaObject metaObject) {
-        if (metaObject.hasSetter(BaseEntity.UPDATE_TIME)) {
-            this.setFieldValByName(BaseEntity.UPDATE_TIME, getNow(), metaObject);
+        Object obj = metaObject.getOriginalObject();
+        if (obj instanceof BaseEntity entity) {
+            entity.setUpdateTime(getNow());
         }
     }
 
