@@ -1,18 +1,20 @@
 package openjoe.smart.stage.mybatisplus.service;
 
+
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.baomidou.mybatisplus.spring.service.IService;
+import com.baomidou.mybatisplus.spring.service.impl.ServiceImpl;
 import openjoe.smart.stage.core.entity.Page;
 import openjoe.smart.stage.mybatisplus.util.PageHelper;
 
 /**
- * MybatisPlus基础Service
+ * MybatisPlus基础ServiceImpl
  *
  * @param <T>
  */
-public interface BaseService<T> extends IService<T> {
+public class BaseService<M extends BaseMapper<T>, T> extends ServiceImpl<M, T> {
 
     /**
      * 提供新的分页方法，统一分页返回Entity
@@ -21,7 +23,7 @@ public interface BaseService<T> extends IService<T> {
      * @param size
      * @return
      */
-    default Page<T> findPage(long current, long size) {
+    public Page<T> findPage(long current, long size) {
         return findPage(current, size, Wrappers.emptyWrapper());
     }
 
@@ -33,7 +35,7 @@ public interface BaseService<T> extends IService<T> {
      * @param wrapper
      * @return
      */
-    default Page<T> findPage(long current, long size, Wrapper<T> wrapper) {
+    public Page<T> findPage(long current, long size, Wrapper<T> wrapper) {
         IPage<T> t = page(new com.baomidou.mybatisplus.extension.plugins.pagination.Page<>(current, size), wrapper);
         return PageHelper.convert(t);
     }

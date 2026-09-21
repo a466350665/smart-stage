@@ -39,15 +39,6 @@ Smart Stage 负责提供基础能力，以下两个项目分别用于“生成�
   - `boot` 模块内置 Spring Boot 打包配置与 Dockerfile
   - 示例 CRUD、`init.sql`、插件配置目录 `plugin/${symbol}` 与 i18n 资源
 
-### smart-stage-governor（多模块示例工程）
-
-- 开源地址：[smart-stage-governor](https://github.com/a466350665/smart-stage-governor)
-- 定位：**展示 Smart Stage 兼具单体和聚合的能力**
-- 结构与能力：
-  - `smart-stage-governor-boot` 聚合启动模块（便于单体方式快速验证）
-  - `smart-stage-sample1`：示例应用1（基于 [smart-stage-archetype](https://github.com/a466350665/smart-stage-archetype) 生成的Java基础应用）
-  - `smart-stage-sample2`：示例应用2（通过 OpenFeign 调用 示例应用1）
-
 ## 安装与依赖
 
 项目发布到 Maven Central 后，可按需引入：
@@ -56,7 +47,7 @@ Smart Stage 负责提供基础能力，以下两个项目分别用于“生成�
 <dependency>
     <groupId>io.github.openjoe</groupId>
     <artifactId>smart-stage-core</artifactId>
-    <version>2.0.0</version>
+    <version>3.0.1</version>
 </dependency>
 ```
 
@@ -64,7 +55,7 @@ Smart Stage 负责提供基础能力，以下两个项目分别用于“生成�
 <dependency>
     <groupId>io.github.openjoe</groupId>
     <artifactId>smart-stage-starter</artifactId>
-    <version>2.0.0</version>
+    <version>3.0.1</version>
 </dependency>
 ```
 
@@ -72,7 +63,7 @@ Smart Stage 负责提供基础能力，以下两个项目分别用于“生成�
 <dependency>
     <groupId>io.github.openjoe</groupId>
     <artifactId>smart-stage-starter-mybatisplus</artifactId>
-    <version>2.0.0</version>
+    <version>3.0.1</version>
 </dependency>
 ```
 
@@ -157,7 +148,7 @@ plugin/
 
 - 自动注册分页拦截器
 - 自动填充 `createTime` / `updateTime`
-- 提供 `BaseEntity`、`BaseService`、`BaseServiceImpl` 与分页转换
+- 提供 `BaseEntity`、`BaseService` 与分页转换
 
 配置示例：
 
@@ -178,7 +169,7 @@ public class UserEntity extends BaseEntity {
   private String name;
 }
 
-public interface UserService extends BaseService<UserEntity> {
+public class UserService extends BaseService<UserEntity> {
 }
 ```
 
