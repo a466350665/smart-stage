@@ -157,7 +157,7 @@ plugin/
 
 - 自动注册分页拦截器
 - 自动填充 `createTime` / `updateTime`
-- 提供 `BaseEntity`、`BaseService`、`BaseServiceImpl` 与分页转换
+- 提供 `BaseEntity`、`BaseService` 与分页转换
 
 配置示例：
 
@@ -178,7 +178,7 @@ public class UserEntity extends BaseEntity {
   private String name;
 }
 
-public interface UserService extends BaseService<UserEntity> {
+public class UserService extends BaseService<UserEntity> {
 }
 ```
 
