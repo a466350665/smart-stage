@@ -26,18 +26,41 @@ smart-stage
 - JDK 17
 - Spring Boot 3.5.x
 
-## 相关项目（脚手架与示例）
+## 快速开始
 
-Smart Stage 负责提供基础能力，以下两个项目分别用于“生成工程骨架”和“演示完整落地”：
+Smart Stage 负责提供基础能力，可执行以下Maven命令快速生成工程示例：
 
-### smart-stage-archetype（Maven Archetype 模板）
+```
+mvn archetype:generate \
+    -DarchetypeGroupId=io.github.openjoe \
+    -DarchetypeArtifactId=smart-stage-archetype \
+    -DarchetypeVersion=1.0.3 \
+    -DgroupId=<my-groupId> \
+    -DartifactId=<my-artifactId> \
+    -Dversion=<my-version> \
+    -Dpackage=<my-package> \
+    -Dsymbol=<my-symbol> \
+    -DinteractiveMode=false
+```
 
-- 开源地址：[smart-stage-archetype](https://github.com/a466350665/smart-stage-archetype)
-- 定位：**快速生成支持插件机制和聚合部署的Java基础应用**
-- 预置能力：
-  - `service` 模块默认集成 MyBatis-Plus + MySQL
-  - `boot` 模块内置 Spring Boot 打包配置与 Dockerfile
-  - 示例 CRUD、`init.sql`、插件配置目录 `plugin/${symbol}` 与 i18n 资源
+请将上述命令中的&lt;my-groupId&gt;, &lt;my-artifactId&gt;, &lt;my-version&gt;, &lt;my-package&gt;, &lt;my-symbol&gt;替换为您的实际值。
+<ul>
+<li>
+-DgroupId=&lt;my-groupId&gt;: 指定应用的组ID，如com.smart
+</li>
+<li>
+-DartifactId=&lt;my-artifactId&gt;: 指定应用的artifact ID，如smart-sample
+</li>
+<li>
+-Dversion=&lt;my-version&gt;: 指定应用的版本号，如1.0.0-SNAPSHOT
+</li>
+<li>
+-Dpackage=&lt;my-package&gt;: 指定应用的Java包名，如com.smart.sample
+</li>
+<li>
+-Dsymbol=&lt;my-symbol&gt;: 指定应用的简称，它用于请求路径前缀和插件资源目录的命名，最好用纯英文小写，如sample
+</li>
+</ul>
 
 ## 安装与依赖
 
