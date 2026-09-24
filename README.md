@@ -26,9 +26,9 @@ smart-stage
 - JDK 17
 - Spring Boot 3.5.x
 
-## 快速开始
+## 快速创建示例
 
-Smart Stage 负责提供基础能力，可执行以下Maven命令快速生成工程示例：
+可执行以下Maven命令快速创建示例工程：
 
 ```
 mvn archetype:generate \
