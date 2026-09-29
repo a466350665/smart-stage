@@ -70,7 +70,7 @@ mvn archetype:generate \
 <dependency>
     <groupId>io.github.openjoe</groupId>
     <artifactId>smart-stage-core</artifactId>
-    <version>2.0.2</version>
+    <version>2.0.3</version>
 </dependency>
 ```
 
@@ -78,7 +78,7 @@ mvn archetype:generate \
 <dependency>
     <groupId>io.github.openjoe</groupId>
     <artifactId>smart-stage-starter</artifactId>
-    <version>2.0.2</version>
+    <version>2.0.3</version>
 </dependency>
 ```
 
@@ -86,7 +86,7 @@ mvn archetype:generate \
 <dependency>
     <groupId>io.github.openjoe</groupId>
     <artifactId>smart-stage-starter-mybatisplus</artifactId>
-    <version>2.0.2</version>
+    <version>2.0.3</version>
 </dependency>
 ```
 

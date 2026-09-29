@@ -123,11 +123,6 @@ public class PluginResourceParser {
             return;
         }
 
-        if (propertySources.contains(StandardEnvironment.SYSTEM_ENVIRONMENT_PROPERTY_SOURCE_NAME)) {
-            propertySources.addAfter(StandardEnvironment.SYSTEM_ENVIRONMENT_PROPERTY_SOURCE_NAME, propertySource);
-            return;
-        }
-
         propertySources.addLast(propertySource);
     }
 
