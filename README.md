@@ -34,7 +34,7 @@ smart-stage
 mvn archetype:generate \
     -DarchetypeGroupId=io.github.openjoe \
     -DarchetypeArtifactId=smart-stage-archetype \
-    -DarchetypeVersion=2.0.3 \
+    -DarchetypeVersion=2.0.5 \
     -DgroupId=<my-groupId> \
     -DartifactId=<my-artifactId> \
     -Dversion=<my-version> \
